@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<ApplicationIcon>letter-svgrepo-com.ico</ApplicationIcon>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="ُثدفForm.cs" />
+	  <Compile Remove="ُثدفForm.Designer.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Remove="ُثدفForm.resx" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="letter-svgrepo-com.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ClosedXML" Version="0.97.0" />
+		<PackageReference Include="Dapper" Version="2.0.123" />
+		<PackageReference Include="iTextSharp" Version="5.5.13.3" />
+		<PackageReference Include="PersianDatePickerWindowsFrom" Version="3.0.1" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Recived\RecivedForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="Recived\RecivedItemForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Sent\A4-Template.docx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Sent\A5-Template.docx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+</Project>
