@@ -1,16 +1,40 @@
 ﻿using Dapper;
+using Newtonsoft.Json;
 using System.Data.SqlClient;
 
 namespace IndicatorBook.Resources
 {
     public class RecivedRepository
     {
-        private string connectionString = "Data Source=192.168.1.109,1433;Initial Catalog=IndicatorBook;Persist Security Info=True;User ID=sa;Password=12qwAS!@";
+        private string connectionString = "Data Source={ServerIp},1433;Initial Catalog=PhoneBookDb;Persist Security Info=True;User ID=sa;Password=12qwAS!@";
 
         private static RecivedRepository _instance;
+        private static Config config;
+
         public static RecivedRepository Instance
         {
             get { return _instance ??= new RecivedRepository(); }
+        }
+
+        static RecivedRepository()
+        {
+            LoadJson();
+        }
+
+        static void LoadJson()
+        {
+            using (StreamReader r = new StreamReader("config.json"))
+            {
+                string json = r.ReadToEnd();
+                config = JsonConvert.DeserializeObject<Config>(json);
+            }
+        }
+
+        private string GetConnectionString()
+        {
+            var generatedConnectionString = connectionString.Replace("{ServerIp}", config.ServerIp);
+
+            return generatedConnectionString;
         }
 
         public bool IsExist(RecivedLetter recievedLetter)
@@ -35,7 +59,7 @@ namespace IndicatorBook.Resources
 
             RecivedLetter result;
 
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(GetConnectionString()))
             {
                 result = connection.QuerySingleOrDefault<RecivedLetter>(existQuery);
             }
@@ -67,7 +91,7 @@ namespace IndicatorBook.Resources
 
             List<RecivedLetter> result;
 
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(GetConnectionString()))
             {
                 result = connection.Query<RecivedLetter>(existQuery).ToList();
             }
@@ -100,7 +124,7 @@ namespace IndicatorBook.Resources
                                         ,@ScanFile
                                         ,@ScanFileExtension)";
 
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(GetConnectionString()))
             {
                 var result = connection.Execute(insertQuery, new
                 {
@@ -124,7 +148,7 @@ namespace IndicatorBook.Resources
                             DELETE FROM [dbo].[Recived]
                                   WHERE [Id] = @Id";
 
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(GetConnectionString()))
             {
                 var result = connection.Execute(deleteQuery, new
                 {
@@ -149,7 +173,7 @@ namespace IndicatorBook.Resources
                               ,[ScanFileExtension] = @ScanFileExtension 
                          WHERE [Id] = @Id";
 
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(GetConnectionString()))
             {
                 var result = connection.Execute(insertQuery, new
                 {
@@ -176,7 +200,7 @@ namespace IndicatorBook.Resources
 
             RecivedLetter result;
 
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new SqlConnection(GetConnectionString()))
             {
                 result = connection.QuerySingleOrDefault<RecivedLetter>(existQuery);
             }

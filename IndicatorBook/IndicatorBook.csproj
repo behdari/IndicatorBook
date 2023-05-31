@@ -26,6 +26,7 @@
 		<PackageReference Include="ClosedXML" Version="0.97.0" />
 		<PackageReference Include="Dapper" Version="2.0.123" />
 		<PackageReference Include="iTextSharp" Version="5.5.13.3" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="PersianDatePickerWindowsFrom" Version="3.0.1" />
 		<PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
 	</ItemGroup>
@@ -52,6 +53,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Update="config.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	  <None Update="Sent\A4-Template.docx">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
