@@ -6,7 +6,7 @@ namespace IndicatorBook.Resources
 {
     public class SentRepository
     {
-        private string connectionString = "Data Source={ServerIp},1433;Initial Catalog=PhoneBookDb;Persist Security Info=True;User ID=sa;Password=12qwAS!@";
+        private string connectionString = "Data Source={ServerIp},1433;Initial Catalog=IndicatorBook;Persist Security Info=True;User ID=sa;Password=12qwAS!@";
 
         private static SentRepository _instance;
         private static Config config;
